@@ -1,10 +1,18 @@
 import express, { Response, Request } from 'express'
+const cors = require('cors')
 
 const app = express()
 const PORT = 4000
 
+// middlewares
+app.use(cors())
+
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Servers')
+  const mhs = {
+    nama: 'putra',
+    nim: '123',
+  }
+  res.json(mhs)
 })
 
 app.use('/', (req: Request, res: Response) => {
