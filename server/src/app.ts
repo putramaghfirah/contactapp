@@ -10,12 +10,14 @@ const PORT = 4000
 // middlewares
 app.use(cors())
 
+// import routes
+const contactRoute = require('./routes/contact')
+
+// router
+app.use('/contact', contactRoute)
+
 app.get('/', (req: Request, res: Response) => {
-  const mhs = {
-    nama: 'putra',
-    nim: '123',
-  }
-  res.json(mhs)
+  res.send('Home')
 })
 
 // page not found
