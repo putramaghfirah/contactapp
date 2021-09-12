@@ -1,11 +1,13 @@
 // library
+import connectDb from './config/db'
 import express, { Response, Request } from 'express'
 const cors = require('cors') // cors to remove policy fetch
-const mongoose = require('mongoose') // mongoose
-require('dotenv/config') // dotenv to catch DB_CONNECTION
 
 const app = express()
 const PORT = 4000
+
+// connect DB
+connectDb()
 
 // middlewares
 app.use(cors())
@@ -23,11 +25,6 @@ app.get('/', (req: Request, res: Response) => {
 // page not found
 app.use('/', (req: Request, res: Response) => {
   res.status(404).send('404 Page not found :(')
-})
-
-// database connect
-mongoose.connect(process.env.DB_CONNECTION, () => {
-  console.log('connected to DB!')
 })
 
 app.listen(PORT, () => {
