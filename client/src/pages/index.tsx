@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { PlusIcon } from '@heroicons/react/solid'
-import { Contact } from 'types/contact'
+import { Contact } from '../types/Contact'
 
 export const HomePage = (): JSX.Element => {
   const [users, setPeople] = useState<Contact[]>([])
@@ -90,10 +90,6 @@ export const HomePage = (): JSX.Element => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <Link
-                              // href={{
-                              //   pathname: '/contact',
-                              //   query: { nama: person.nama },
-                              // }}
                               href="contact/[nama]"
                               as={`/contact/${person.nama}`}
                               passHref
