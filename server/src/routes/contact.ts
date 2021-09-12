@@ -1,5 +1,5 @@
 import { Response, Request, Router } from 'express'
-const Contact = require('../model/contact')
+const Contact = require('../models/contact')
 
 const router = Router()
 

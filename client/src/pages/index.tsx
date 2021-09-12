@@ -1,15 +1,37 @@
-import React from 'react'
-import { GetServerSideProps } from 'next'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { PlusIcon } from '@heroicons/react/solid'
 import { Contact } from '../types/Contact'
 
-interface Props {
-  users: Contact[]
-}
+// interface Props {
+//   users: Contact[]
+// }
 
-export const HomePage = ({ users }: Props): JSX.Element => {
+export const HomePage = (): JSX.Element => {
+  const [users, setUsers] = useState<Contact[]>([])
+  // const [isLoading, setIsLoading] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [isEmpty, setIsEmpty] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // setIsLoading(true)
+      setHasError(false)
+      try {
+        const res = await fetch('http://localhost:4000/contact/')
+        const data = await res.json()
+        if (data.length === 0) {
+          setIsEmpty(true)
+        } else setUsers(data)
+      } catch (error) {
+        setHasError(true)
+      }
+      // setIsLoading(false)
+    }
+
+    fetchData()
+  }, [])
   return (
     <React.Fragment>
       <Head>
@@ -24,7 +46,16 @@ export const HomePage = ({ users }: Props): JSX.Element => {
           <PlusIcon className="h-7 w-7" />
           <span className="mx-1">Add Contact</span>
         </button>
-        {users.length !== 0 ? (
+        {hasError && (
+          <h1 className="text-3xl font-bold dark:text-gray-100">
+            Something went wrong!
+          </h1>
+        )}
+        {isEmpty ? (
+          <h1 className="text-3xl font-bold dark:text-gray-100">
+            Contact is empty!
+          </h1>
+        ) : (
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -101,25 +132,10 @@ export const HomePage = ({ users }: Props): JSX.Element => {
               </div>
             </div>
           </div>
-        ) : (
-          <h1 className="text-3xl font-bold dark:text-gray-100">
-            Contact is empty!
-          </h1>
         )}
       </div>
     </React.Fragment>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`http://localhost:4000/contact/`)
-  const data = await res.json()
-
-  return {
-    props: {
-      users: data,
-    },
-  }
 }
 
 export default HomePage
