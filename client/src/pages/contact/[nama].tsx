@@ -1,28 +1,13 @@
 import { GetServerSideProps } from 'next'
-// import { GetStaticPaths, GetStaticProps } from 'next'
-// import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Contact } from '../../types/Contact'
-// import { useRouter } from 'next/router'
 
 interface Props {
   contact: Contact[]
 }
 
 const DetailContact = ({ contact }: Props): JSX.Element => {
-  // const [contact, setContact] = useState<Contact[]>([])
-  // const router = useRouter()
-  // const { nama } = router.query
-
-  // useEffect(() => {
-  //   console.log(router)
-  //   if (!router.isReady) return
-  //   fetch(`http://localhost:4000/contact/${nama}`)
-  //     .then(res => res.json())
-  //     .then(data => setContact(data))
-  // }, [router.isReady])
-
   return (
     <>
       <Head>

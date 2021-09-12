@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import { PlusIcon } from '@heroicons/react/solid'
 import { Contact } from '../types/Contact'
 
-export const HomePage = (): JSX.Element => {
-  const [users, setPeople] = useState<Contact[]>([])
+interface Props {
+  users: Contact[]
+}
 
-  useEffect(() => {
-    fetchUsers()
-    async function fetchUsers() {
-      const res = await fetch('http://localhost:4000/contact')
-      const data = await res.json()
-
-      return setPeople(data)
-    }
-  }, [])
+export const HomePage = ({ users }: Props): JSX.Element => {
   return (
     <React.Fragment>
       <Head>
@@ -115,6 +109,17 @@ export const HomePage = (): JSX.Element => {
       </div>
     </React.Fragment>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(`http://localhost:4000/contact/`)
+  const data = await res.json()
+
+  return {
+    props: {
+      users: data,
+    },
+  }
 }
 
 export default HomePage
