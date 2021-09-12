@@ -2,15 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { PlusIcon } from '@heroicons/react/solid'
-
-interface Props {
-  nama: string
-  email: string
-  nohp: string
-}
+import { Contact } from 'types/contact'
 
 export const HomePage = (): JSX.Element => {
-  const [users, setPeople] = useState<Props[]>([])
+  const [users, setPeople] = useState<Contact[]>([])
 
   useEffect(() => {
     fetchUsers()
@@ -74,7 +69,7 @@ export const HomePage = (): JSX.Element => {
                       {users.map((person, index) => (
                         <tr key={person.email}>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center">
+                            <div className="flex items-center justify-center">
                               <div className="text-sm font-medium text-gray-900">
                                 {index + 1}
                               </div>
@@ -95,7 +90,11 @@ export const HomePage = (): JSX.Element => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <Link
-                              href="/contact/[nama]"
+                              // href={{
+                              //   pathname: '/contact',
+                              //   query: { nama: person.nama },
+                              // }}
+                              href="contact/[nama]"
                               as={`/contact/${person.nama}`}
                               passHref
                             >
