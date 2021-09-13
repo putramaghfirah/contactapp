@@ -1,5 +1,6 @@
 import { Response, Request, Router } from 'express'
 import { Contact } from '../models/Contact'
+import { check, validationResult, body } from 'express-validator'
 
 const router = Router()
 
@@ -13,27 +14,35 @@ router.get('/', async (req: Request, res: Response) => {
   }
 })
 
-router.post('/add', async (req: Request, res: Response) => {
-  // Contact.insertMany({
-  //   nama: req.body.nama,
-  //   email: req.body.email,
-  //   nohp: req.body.nohp,
-  // })
-  // Contact.insertMany(req.body)
-  const contact = new Contact({
-    nama: req.body.nama,
-    email: req.body.email,
-    nohp: req.body.nohp,
-  })
-  try {
-    const saveContact = await contact.save()
-    res.status(201).json(saveContact)
-    console.log(req.body)
-  } catch (error) {
-    res.status(403).json({ message: error })
-    console.log(error)
-  }
-})
+router.post(
+  '/add',
+  [
+    body('nama').custom(async value => {
+      const duplicate = await Contact.findOne({ nama: value })
+      if (duplicate) {
+        throw new Error('Name already exists!')
+      }
+      return true
+    }),
+    check('email', 'Invalid email').isEmail(),
+    check('nohp', 'Invalid nohp').isMobilePhone('id-ID'),
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array() })
+    } else {
+      const contact = new Contact({
+        nama: req.body.nama,
+        email: req.body.email,
+        nohp: req.body.nohp,
+      })
+      const saveContact = await contact.save()
+      console.log(saveContact)
+      res.status(201).json(saveContact)
+    }
+  },
+)
 
 router.get('/:nama', async (req: Request, res: Response) => {
   try {
