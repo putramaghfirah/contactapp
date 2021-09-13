@@ -8,6 +8,11 @@ router.get('/', async (req: Request, res: Response) => {
   res.json(contacts)
 })
 
+router.get('/add', async (req: Request, res: Response) => {
+  const contacts = await Contact.find()
+  res.json(contacts)
+})
+
 router.get('/:nama', async (req: Request, res: Response) => {
   const contact = await Contact.find({ nama: req.params.nama })
   res.json(contact)

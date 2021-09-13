@@ -8,13 +8,13 @@ interface Props {
   contact: Contact[]
 }
 
-const DetailContact = ({ contact }: Props): JSX.Element => {
+const DetailContactPage = ({ contact }: Props): JSX.Element => {
   return (
     <>
       <Head>
         <title>Detail Page</title>
       </Head>
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex flex-wrap items-center justify-around mt-6 sm:w-full">
         {contact.map(contact => {
           return (
             <div
@@ -104,4 +104,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
 //     fallback: false,
 //   }
 // }
-export default DetailContact
+export default DetailContactPage

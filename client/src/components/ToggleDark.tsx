@@ -11,9 +11,9 @@ const ToggleDark: FC<Props> = () => {
     <div className="absolute top-5 right-5 transition duration-1000">
       <button onClick={() => setTheme()}>
         {theme === 'light' ? (
-          <MoonIcon className="h-7 w-7 text-[#1A202C]" />
+          <MoonIcon className="h-6 w-6 text-[#1A202C]" />
         ) : (
-          <SunIcon className="h-7 w-7 text-yellow-500" />
+          <SunIcon className="h-6 w-6 text-yellow-500" />
         )}
       </button>
     </div>
