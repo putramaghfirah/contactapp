@@ -18,6 +18,7 @@ const AddPage = (): JSX.Element => {
               </label>
               <input
                 id="username"
+                name="nama"
                 type="text"
                 className="my-3 block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -31,6 +32,7 @@ const AddPage = (): JSX.Element => {
                 NoHp
               </label>
               <input
+                name="nohp"
                 id="noHp"
                 type="text"
                 className="my-3 block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -44,6 +46,7 @@ const AddPage = (): JSX.Element => {
                 Email
               </label>
               <input
+                name="email"
                 id="emailAddress"
                 type="email"
                 className="my-3 block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"

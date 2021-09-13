@@ -10,7 +10,9 @@ const PORT = 4000
 connectDb()
 
 // middlewares
-app.use(cors())
+app.use(cors()) // policy
+app.use(express.json()) // body parser json
+app.use(express.urlencoded({ extended: true })) // form-urlencode
 
 // import routes
 const contactRoute = require('./routes/contact')
