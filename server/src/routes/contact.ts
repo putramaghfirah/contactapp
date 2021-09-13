@@ -14,7 +14,14 @@ router.get('/add', async (req: Request, res: Response) => {
 })
 
 router.post('/add', async (req: Request, res: Response) => {
-  res.json(req.body)
+  Contact.insertMany({
+    nama: req.body.nama,
+    email: req.body.email,
+    nohp: req.body.nohp,
+  })
+  // Contact.insertMany(req.body)
+  console.log(req.body)
+  res.sendStatus(200)
 })
 
 router.get('/:nama', async (req: Request, res: Response) => {
