@@ -1,7 +1,7 @@
 // library
 import connectDb from './config/db'
 import express, { Response, Request } from 'express'
-const cors = require('cors') // cors to remove policy fetch
+import cors from 'cors'
 
 const app = express()
 const PORT = 4000
