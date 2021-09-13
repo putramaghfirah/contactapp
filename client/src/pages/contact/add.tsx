@@ -27,14 +27,18 @@ const AddPage = (): JSX.Element => {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(() => console.log('Contact is Created'))
+    }).then(res => {
+      if (res.status === 201) {
+        console.log('Contact is Created')
+      }
+    })
   }
   return (
     <>
       <Head>
         <title>Add Contact</title>
       </Head>
-      <div className="flex flex-wrap items-center justify-around mt-6">
+      <div className="flex flex-col items-center justify-around mt-6">
         <section className="md:w-96 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
           <h2 className="text-lg mb-3 font-semibold text-gray-700 capitalize dark:text-white">
             Add Data Contact

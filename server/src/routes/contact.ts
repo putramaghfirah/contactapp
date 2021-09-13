@@ -4,42 +4,46 @@ const Contact = require('../models/contact')
 const router = Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  const contacts = await Contact.find()
-  res.json(contacts)
-})
-
-router.get('/add', async (req: Request, res: Response) => {
-  const contacts = await Contact.find()
-  res.json(contacts)
+  try {
+    const contacts = await Contact.find()
+    res.status(200).json(contacts)
+  } catch (error) {
+    res.status(400).json({ message: error })
+    console.log(error)
+  }
 })
 
 router.post('/add', async (req: Request, res: Response) => {
-  Contact.insertMany({
+  // Contact.insertMany({
+  //   nama: req.body.nama,
+  //   email: req.body.email,
+  //   nohp: req.body.nohp,
+  // })
+  // Contact.insertMany(req.body)
+  const contact = new Contact({
     nama: req.body.nama,
     email: req.body.email,
     nohp: req.body.nohp,
   })
-  // Contact.insertMany(req.body)
-  console.log(req.body)
-  res.sendStatus(200)
+  try {
+    const saveContact = await contact.save()
+    res.status(201).json(saveContact)
+    console.log(req.body)
+  } catch (error) {
+    res.status(403).json({ message: error })
+    console.log(error)
+  }
 })
 
 router.get('/:nama', async (req: Request, res: Response) => {
-  const contact = await Contact.find({ nama: req.params.nama })
-  res.json(contact)
-})
-
-router.post('/', async (req: Request, res: Response) => {
-  const contact = new Contact({
-    nama: 'Putra Maghfirah',
-    nohp: '082273297050',
-    email: 'putra@gmail.com',
-  })
   try {
-    const saveContact = await contact.save()
-    res.json(saveContact)
+    const contact = await Contact.findOne({ nama: req.params.nama })
+    // eslint-disable-next-line no-throw-literal
+    if (!contact) throw 'Data not found!'
+    res.status(200).json(contact)
   } catch (error) {
-    res.json({ message: error })
+    res.status(403).json({ message: error })
+    console.log(error)
   }
 })
 
