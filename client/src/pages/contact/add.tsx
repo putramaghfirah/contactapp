@@ -1,15 +1,28 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import { Contact } from '../../types/Contact'
 
 const AddPage = (): JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Contact>({ mode: 'onBlur' })
+
+  async function onSubmit(props: Contact) {
+    console.log(props.email)
+    console.log(props.nama)
+    console.log(props.nohp)
+  }
   return (
     <div className="flex flex-wrap items-center justify-around mt-6 sm:w-full">
       <section className="w-96 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
         <h2 className="text-lg mb-3 font-semibold text-gray-700 capitalize dark:text-white">
           Add Data Contact
         </h2>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flext items-center justify-center flex-row">
-            <div>
+            <div className="mt-3">
               <label
                 className="text-gray-700 dark:text-gray-200"
                 htmlFor="username"
@@ -17,14 +30,19 @@ const AddPage = (): JSX.Element => {
                 Name
               </label>
               <input
+                {...register('nama', { required: true })}
                 id="username"
-                name="nama"
                 type="text"
-                className="my-3 block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
+              {errors.nama && (
+                <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
+                  *This field is required
+                </span>
+              )}
             </div>
 
-            <div>
+            <div className="mt-3">
               <label
                 className="text-gray-700 dark:text-gray-200"
                 htmlFor="noHp"
@@ -32,13 +50,18 @@ const AddPage = (): JSX.Element => {
                 NoHp
               </label>
               <input
-                name="nohp"
+                {...register('nohp', { required: true })}
                 id="noHp"
                 type="text"
-                className="my-3 block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
+              {errors.nohp && (
+                <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
+                  *This field is required
+                </span>
+              )}
             </div>
-            <div>
+            <div className="mt-3">
               <label
                 className="text-gray-700 dark:text-gray-200"
                 htmlFor="emailAddress"
@@ -46,11 +69,16 @@ const AddPage = (): JSX.Element => {
                 Email
               </label>
               <input
-                name="email"
+                {...register('email', { required: true })}
                 id="emailAddress"
                 type="email"
-                className="my-3 block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
+              {errors.email && (
+                <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
+                  *This field is required
+                </span>
+              )}
             </div>
           </div>
 
