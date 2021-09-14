@@ -96,7 +96,7 @@ export const HomePage = (): JSX.Element => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-600 text-gray-900 dark:bg-gray-800 dark:text-white">
                       {users.map((person, index) => (
-                        <tr key={person.email}>
+                        <tr key={person.nama}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center justify-center">
                               <div className="text-sm font-medium">

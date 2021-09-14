@@ -1,24 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { CheckCircleIcon, XIcon } from '@heroicons/react/solid'
+import { useAlert } from '../store/useAlert'
 
 const Alert = (): JSX.Element => {
-  const [active, setActive] = useState(true)
+  const { isActive, setActive } = useAlert(state => {
+    return {
+      isActive: state.isActive,
+      setActive: state.setActive,
+    }
+  })
   return (
-    <div>
-      {active && (
+    <>
+      {isActive && (
         <div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-500">
           <span className="text-xl inline-block mr-5 align-middle">
-            <i className="fas fa-bell" />
+            <CheckCircleIcon className="w-5 h-5" />
           </span>
           <span className="inline-block align-middle mr-8">
-            <b className="capitalize">lightBlue!</b> This is a lightBlue alert -
-            check it out!
+            contact data added successfully
           </span>
-          <button className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
-            <button onClick={() => setActive(false)}>×</button>
+          <button
+            onClick={() => setActive(!isActive)}
+            className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+          >
+            <XIcon className="w-5 h-5" />
           </button>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

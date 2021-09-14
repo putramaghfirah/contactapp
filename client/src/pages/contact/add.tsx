@@ -4,8 +4,11 @@ import { useForm } from 'react-hook-form'
 import validator from 'validator'
 
 import { Contact } from '../../types/Contact'
+import Alert from '@components/Alert'
+import { useAlert } from '../../store/useAlert'
 
 const AddPage = (): JSX.Element => {
+  const setActive = useAlert(state => state.setActive)
   const {
     register,
     handleSubmit,
@@ -17,14 +20,12 @@ const AddPage = (): JSX.Element => {
     fetch('http://localhost:4000/contact/add', {
       // Adding method type
       method: 'POST',
-
       // Adding body or contents to send
       body: JSON.stringify({
         nama: props.nama,
         nohp: props.nohp,
         email: props.email,
       }),
-
       // Adding headers to the request
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -36,7 +37,9 @@ const AddPage = (): JSX.Element => {
             type: 'manual',
             message: 'Name already exists!',
           })
-        } else console.log('Contact is Created')
+        } else {
+          setActive(true)
+        }
       })
       .catch(errors => {
         console.log(errors)
@@ -48,6 +51,7 @@ const AddPage = (): JSX.Element => {
         <title>Add Contact</title>
       </Head>
       <div className="flex flex-col items-center justify-around mt-6">
+        <Alert />
         <section className="md:w-96 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
           <h2 className="text-lg mb-3 font-semibold text-gray-700 capitalize dark:text-white">
             Add Data Contact
