@@ -6,6 +6,7 @@ import validator from 'validator'
 import { Contact } from '../../types/Contact'
 import Alert from '@components/Alert'
 import { useAlert } from '../../store/useAlert'
+import router from 'next/router'
 
 const AddPage = (): JSX.Element => {
   const setActive = useAlert(state => state.setActive)
@@ -39,6 +40,9 @@ const AddPage = (): JSX.Element => {
           })
         } else {
           setActive(true)
+          setTimeout(() => {
+            router.push('/')
+          }, 1000)
         }
       })
       .catch(errors => {
