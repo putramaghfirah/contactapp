@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
+import validator from 'validator'
 
 import { Contact } from '../../types/Contact'
 
@@ -8,6 +9,7 @@ const AddPage = (): JSX.Element => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<Contact>({ mode: 'onBlur' })
 
@@ -27,11 +29,18 @@ const AddPage = (): JSX.Element => {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(res => {
-      if (res.status === 201) {
-        console.log('Contact is Created')
-      }
     })
+      .then(res => {
+        if (res.status === 400) {
+          setError('nama', {
+            type: 'manual',
+            message: 'Name already exists!',
+          })
+        } else console.log('Contact is Created')
+      })
+      .catch(errors => {
+        console.log(errors)
+      })
   }
   return (
     <>
@@ -58,9 +67,14 @@ const AddPage = (): JSX.Element => {
                   type="text"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
-                {errors.nama && (
+                {errors.nama?.type === 'required' && (
                   <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
                     *This field is required
+                  </span>
+                )}
+                {errors.nama?.type === 'manual' && (
+                  <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
+                    *Name already exists!
                   </span>
                 )}
               </div>
@@ -73,14 +87,23 @@ const AddPage = (): JSX.Element => {
                   NoHp
                 </label>
                 <input
-                  {...register('nohp', { required: true })}
+                  {...register('nohp', {
+                    required: true,
+                    validate: v =>
+                      validator.isMobilePhone(v, 'id-ID') || '*Invalid Nohp',
+                  })}
                   id="noHp"
                   type="text"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
-                {errors.nohp && (
+                {errors.nohp?.type === 'required' && (
                   <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
                     *This field is required
+                  </span>
+                )}
+                {errors.nohp?.type === 'validate' && (
+                  <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
+                    {errors.nohp.message}
                   </span>
                 )}
               </div>
@@ -92,14 +115,22 @@ const AddPage = (): JSX.Element => {
                   Email
                 </label>
                 <input
-                  {...register('email', { required: true })}
+                  {...register('email', {
+                    required: true,
+                    validate: v => validator.isEmail(v) || '*Invalid Email',
+                  })}
                   id="emailAddress"
                   type="email"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
-                {errors.email && (
+                {errors.email?.type === 'required' && (
                   <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
                     *This field is required
+                  </span>
+                )}
+                {errors.email?.type === 'validate' && (
+                  <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
+                    {errors.email.message}
                   </span>
                 )}
               </div>
