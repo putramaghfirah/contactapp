@@ -35,7 +35,7 @@ const AddPage = (): JSX.Element => {
       .then(res => {
         if (res.status === 400) {
           setError('nama', {
-            type: 'manual',
+            type: 'validate',
             message: 'Name already exists!',
           })
         } else {
@@ -81,7 +81,7 @@ const AddPage = (): JSX.Element => {
                     *This field is required
                   </span>
                 )}
-                {errors.nama?.type === 'manual' && (
+                {errors.nama?.type === 'validate' && (
                   <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
                     *Name already exists!
                   </span>

@@ -67,7 +67,7 @@ router.get('/:nama', async (req: Request, res: Response) => {
     if (!contact) throw 'Data not found!'
     res.status(200).json(contact)
   } catch (error) {
-    res.status(403).json({ message: error })
+    res.status(403).json({ message: error, statusCode: 403 })
     console.log(error)
   }
 })

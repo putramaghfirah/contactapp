@@ -83,6 +83,13 @@ export const getServerSideProps: GetServerSideProps = async context => {
   )
 
   const data = await res.json()
+
+  console.log(data)
+  if (data.statusCode === 403) {
+    return {
+      notFound: true,
+    }
+  }
   return {
     props: {
       contact: data,
