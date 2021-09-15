@@ -52,9 +52,15 @@ const DetailContactPage = ({ contact }: Props): JSX.Element => {
           </div>
 
           <div className="flex items-center justify-between mt-2">
-            <button className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-blue-600 rounded cursor-pointer hover:bg-blue-500">
-              Edit
-            </button>
+            <Link
+              href="edit/[nama]"
+              as={`/contact/edit/${contact.nama}`}
+              passHref
+            >
+              <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-blue-600 rounded cursor-pointer hover:bg-blue-500">
+                Edit
+              </a>
+            </Link>
             <button
               onClick={onDelete}
               className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-red-600 rounded cursor-pointer hover:bg-red-500"

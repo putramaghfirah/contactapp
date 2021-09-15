@@ -61,6 +61,41 @@ router.delete('/:nama', async (req: Request, res: Response) => {
   }
 })
 
+router.put(
+  '/update',
+  [
+    body('nama').custom(async (value, { req }) => {
+      const duplicate = await Contact.findOne({ nama: value })
+      if (value !== req.body.oldNama && duplicate) {
+        throw new Error('Name already exists!')
+      }
+      return true
+    }),
+    check('email', 'Invalid email').isEmail(),
+    check('nohp', 'Invalid nohp').isMobilePhone('id-ID'),
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      console.log({ message: errors.array() })
+      return res.status(400).send({ message: errors.array() })
+    } else {
+      const contact = await Contact.updateOne(
+        { _id: req.body._id },
+        {
+          $set: {
+            nama: req.body.nama,
+            nohp: req.body.nohp,
+            email: req.body.email,
+          },
+        },
+      )
+      console.log(contact)
+      res.status(200).json(contact)
+    }
+  },
+)
+
 router.get('/:nama', async (req: Request, res: Response) => {
   try {
     const contact = await Contact.findOne({ nama: req.params.nama })
