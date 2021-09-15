@@ -41,6 +41,7 @@ const AddPage = (): JSX.Element => {
         } else {
           setActive(true)
           setTimeout(() => {
+            setActive(false)
             router.push('/')
           }, 1000)
         }
@@ -55,7 +56,7 @@ const AddPage = (): JSX.Element => {
         <title>Add Contact</title>
       </Head>
       <div className="flex flex-col items-center justify-around mt-6">
-        <Alert />
+        <Alert title="contact data added successfully" />
         <section className="md:w-96 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
           <h2 className="text-lg mb-3 font-semibold text-gray-700 capitalize dark:text-white">
             Add Data Contact

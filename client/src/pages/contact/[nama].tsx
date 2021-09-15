@@ -1,20 +1,40 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Contact } from '../../types/Contact'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 
+import { useAlert } from '../../store/useAlert'
+import { Contact } from '../../types/Contact'
+import Alert from '@components/Alert'
+import router from 'next/router'
 interface Props {
   contact: Contact
 }
 
 const DetailContactPage = ({ contact }: Props): JSX.Element => {
+  const setActive = useAlert(state => state.setActive)
+  function onDelete() {
+    fetch(`http://localhost:4000/contact/${contact.nama}`, {
+      method: 'DELETE',
+    })
+      .then(_res => {
+        setActive(true)
+        setTimeout(() => {
+          setActive(false)
+          router.push('/')
+        }, 1000)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
   return (
     <>
       <Head>
         <title>Detail Page</title>
       </Head>
-      <div className="flex flex-wrap items-center justify-around mt-6 sm:w-full">
+      <div className="flex flex-col items-center justify-around mt-6 sm:w-full">
+        <Alert title="Contact deleted successfully" />
         <div
           key={contact.email}
           className="max-w-2xl px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800"
@@ -32,12 +52,15 @@ const DetailContactPage = ({ contact }: Props): JSX.Element => {
           </div>
 
           <div className="flex items-center justify-between mt-2">
-            <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-blue-600 rounded cursor-pointer hover:bg-blue-500">
+            <button className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-blue-600 rounded cursor-pointer hover:bg-blue-500">
               Edit
-            </a>
-            <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-red-600 rounded cursor-pointer hover:bg-red-500">
+            </button>
+            <button
+              onClick={onDelete}
+              className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-red-600 rounded cursor-pointer hover:bg-red-500"
+            >
               Hapus
-            </a>
+            </button>
           </div>
 
           <div className="flex items-center mt-4">

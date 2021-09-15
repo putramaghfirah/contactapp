@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import { Response, Request, Router } from 'express'
 import { Contact } from '../models/Contact'
 import { check, validationResult, body } from 'express-validator'
@@ -45,10 +46,24 @@ router.post(
   },
 )
 
+router.delete('/:nama', async (req: Request, res: Response) => {
+  try {
+    const contact = await Contact.findOne({ nama: req.params.nama })
+
+    if (!contact) throw 'Contact not found!'
+
+    const contactDelete = await Contact.deleteOne({ _id: contact._id })
+    console.log(contactDelete)
+    res.status(200).json(contactDelete)
+  } catch (error) {
+    res.status(403).json({ message: error })
+    console.log(error)
+  }
+})
+
 router.get('/:nama', async (req: Request, res: Response) => {
   try {
     const contact = await Contact.findOne({ nama: req.params.nama })
-    // eslint-disable-next-line no-throw-literal
     if (!contact) throw 'Data not found!'
     res.status(200).json(contact)
   } catch (error) {
