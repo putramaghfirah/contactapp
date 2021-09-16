@@ -5,9 +5,9 @@ import Head from 'next/head'
 import validator from 'validator'
 import router from 'next/router'
 
-import { Contact } from '../../../types/Contact'
+import { Contact } from '@/types/Contact'
 import Alert from '@components/Alert'
-import { useAlert } from '../../../store/useAlert'
+import { useAlert } from '@/store/useAlert'
 
 interface Props {
   contact: Contact

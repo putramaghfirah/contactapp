@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export default function useDarkMode(): readonly ['dark' | 'light', () => void] {
+export default function useDarkMode(): ['dark' | 'light', () => void] {
   const [theme, setTheme] = useState<'dark' | 'light'>('light')
 
   useEffect(() => {
@@ -23,5 +23,5 @@ export default function useDarkMode(): readonly ['dark' | 'light', () => void] {
     } else setTheme('light')
   }
 
-  return [theme, toggleTheme] as const
+  return [theme, toggleTheme]
 }
