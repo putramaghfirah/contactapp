@@ -14,19 +14,21 @@ interface Props {
 const DetailContactPage = ({ contact }: Props): JSX.Element => {
   const setActive = useAlert(state => state.setActive)
   function onDelete() {
-    fetch(`http://localhost:4000/contact/${contact.nama}`, {
-      method: 'DELETE',
-    })
-      .then(_res => {
-        setActive(true)
-        setTimeout(() => {
-          setActive(false)
-          router.push('/')
-        }, 1000)
+    if (confirm('Yakin ?')) {
+      fetch(`http://localhost:4000/contact/${contact.nama}`, {
+        method: 'DELETE',
       })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(_res => {
+          setActive(true)
+          setTimeout(() => {
+            setActive(false)
+            router.push('/')
+          }, 1000)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
   return (
     <>

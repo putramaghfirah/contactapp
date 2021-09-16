@@ -39,13 +39,13 @@ export const HomePage = (): JSX.Element => {
         <title>Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col items-start justify-center m-5 dark:text-gray-100">
+      <div className="sm:flex sm:flex-col sm:items-center sm:justify-center m-5 dark:text-gray-100">
         <h1 className="text-3xl font-bold mb-2 dark:text-gray-100">
           Daftar Contacts
         </h1>
         <button
           onClick={() => router.push('/contact/add')}
-          className="flex items-center mb-2 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700"
+          className="flex mb-2 items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700"
         >
           <PlusIcon className="h-7 w-7" />
           <span className="mx-1">Add Contact</span>
