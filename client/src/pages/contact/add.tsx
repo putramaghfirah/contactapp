@@ -83,7 +83,7 @@ const AddPage = (): JSX.Element => {
                 )}
                 {errors.nama?.type === 'validate' && (
                   <span className="dark:text-red-400 text-red-500 text-xs animate-slideDownFade">
-                    *Name already exists!
+                    *{errors.nama.message}
                   </span>
                 )}
               </div>
