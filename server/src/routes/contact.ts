@@ -107,4 +107,6 @@ router.get('/:nama', async (req: Request, res: Response) => {
   }
 })
 
-module.exports = router
+const contactRoute = router
+// module.exports = router
+export default contactRoute

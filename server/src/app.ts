@@ -2,6 +2,7 @@
 import connectDb from './config/db'
 import express, { Response, Request } from 'express'
 import cors from 'cors'
+import contactRoute from './routes/contact'
 
 const app = express()
 const PORT = 4000
@@ -15,7 +16,7 @@ app.use(express.json()) // body parser json
 app.use(express.urlencoded({ extended: true })) // form-urlencode
 
 // import routes
-const contactRoute = require('./routes/contact')
+// const contactRouter = require('./routes/contact')
 
 // router
 app.use('/contact', contactRoute)
