@@ -96,9 +96,9 @@ router.put(
   },
 )
 
-router.get('/:nama', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
-    const contact = await Contact.findOne({ nama: req.params.nama })
+    const contact = await Contact.findOne({ _id: req.params.id })
     if (!contact) throw 'Data not found!'
     res.status(200).json(contact)
   } catch (error) {
