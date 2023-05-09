@@ -51,7 +51,7 @@ export default function Table(props: Props) {
                   </td>
                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                     <Link
-                      href={`${contact._id}`}
+                      href={`/${contact._id}`}
                       className="mr-4 text-blue-600 hover:text-blue-900 dark:hover:text-blue-500"
                     >
                       Edit<span className="sr-only">, {contact.nama}</span>
