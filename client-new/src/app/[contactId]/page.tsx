@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { notFound } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 import getContact from '@/lib/getContact'
 import updateContact from '@/lib/updateContact'
 
-import Button from '@/components/Button'
 import { Input } from '@/components/Input'
+import { SubmitButton } from '@/components/SubmitButton'
 interface Props {
   params: {
     contactId: string
@@ -46,8 +46,9 @@ export default async function ContactPage(props: Props) {
     const nohp = data.get('nohp')
 
     await updateContact({ nama, email, nohp, _id: contactId })
-    // revalidatePath(`/${contactId}`)
-    redirect('/')
+    // await new Promise(resolve => setTimeout(resolve, 2000))
+    revalidatePath(`/${contactId}`)
+    // redirect('/')
   }
 
   return (
@@ -68,7 +69,7 @@ export default async function ContactPage(props: Props) {
           label="Nomor Hp"
           defaultValue={contact.nohp}
         />
-        <Button type="submit">Update</Button>
+        <SubmitButton>Update</SubmitButton>
       </form>
     </div>
   )
