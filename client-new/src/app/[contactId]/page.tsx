@@ -52,7 +52,7 @@ export default async function ContactPage(props: Props) {
   }
 
   return (
-    <div className="mt-5 min-h-screen flex-col flex items-center">
+    <div className="mt-5 flex min-h-screen flex-col items-center">
       <p>Hello {contact?.nama}👋</p>
       <form action={handleSubmit} className="flex flex-col space-y-3">
         <Input id="nama" name="nama" label="Nama" defaultValue={contact.nama} />
