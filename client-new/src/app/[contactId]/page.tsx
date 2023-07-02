@@ -39,14 +39,13 @@ export default async function ContactPage(props: Props) {
 
   if (!contact) return notFound()
 
-  async function handleSubmit(data: any) {
+  async function handleSubmit(data: FormData) {
     'use server'
-    const nama = data.get('nama')
-    const email = data.get('email')
-    const nohp = data.get('nohp')
+    const nama = data.get('nama')?.toString()
+    const email = data.get('email')?.toString()
+    const nohp = data.get('nohp')?.toString()
 
     await updateContact({ nama, email, nohp, _id: contactId })
-    // await new Promise(resolve => setTimeout(resolve, 2000))
     revalidatePath(`/${contactId}`)
     // redirect('/')
   }
